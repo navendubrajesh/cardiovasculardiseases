@@ -23,21 +23,66 @@ const PROVIDER_DISPLAY: Record<SocialProvider, string> = {
   linkedin: 'LinkedIn User',
 };
 
-/** Stateless social sign-in — no user records persisted on the server. */
-export async function socialLogin(provider: SocialProvider): Promise<SocialLoginResponse> {
-  const res = await fetch(`${getApiBaseUrl()}/api/auth/social`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      provider,
-      displayName: PROVIDER_DISPLAY[provider],
-    }),
-  });
-  if (!res.ok) {
-    const body = await res.json().catch(() => ({}));
-    throw new Error(formatApiError(body.detail, `Social sign-in failed (${res.status})`));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/** Wake Render free-tier API (may sleep after inactivity). */
+export async function wakeApi(maxAttempts = 4): Promise<void> {
+  let lastError: unknown;
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    try {
+      const res = await fetch(`${getApiBaseUrl()}/api/health`, { method: 'GET' });
+      if (res.ok) return;
+      lastError = new Error(`Health check failed (${res.status})`);
+    } catch (err) {
+      lastError = err;
+    }
+    if (attempt < maxAttempts - 1) {
+      await sleep(2500 * (attempt + 1));
+    }
   }
-  return res.json();
+  throw lastError instanceof Error ? lastError : new Error('Could not reach the API');
+}
+
+/** Stateless social sign-in — no user records persisted on the server. */
+export async function socialLogin(
+  provider: SocialProvider,
+  onStatus?: (message: string) => void,
+): Promise<SocialLoginResponse> {
+  onStatus?.('Connecting to API…');
+  await wakeApi();
+
+  let lastError: unknown;
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      onStatus?.(attempt === 0 ? 'Signing in…' : `Retrying sign-in (${attempt + 1}/3)…`);
+      const res = await fetch(`${getApiBaseUrl()}/api/auth/social`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider,
+          displayName: PROVIDER_DISPLAY[provider],
+        }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(formatApiError(body.detail, `Social sign-in failed (${res.status})`));
+      }
+      return res.json();
+    } catch (err) {
+      lastError = err;
+      if (attempt < 2) {
+        await sleep(2000 * (attempt + 1));
+        await wakeApi(2);
+      }
+    }
+  }
+
+  if (lastError instanceof TypeError && /fetch/i.test(lastError.message)) {
+    throw new Error(
+      'Could not reach the API. The server may be waking up — please wait a moment and try again.',
+    );
+  }
+  throw lastError instanceof Error ? lastError : new Error('Sign-in failed. Please try again.');
 }
 
 // Legacy email flow retained for local/dev tooling — not used by LoginPage.
