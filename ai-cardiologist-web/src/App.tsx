@@ -14,10 +14,12 @@ import { ResearchPage } from './pages/ResearchPage';
 import { DashboardPage } from './pages/DashboardPage';
 import './style.css';
 
+const ROUTER_BASENAME = import.meta.env.BASE_URL.replace(/\/$/, '') || '/';
+
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={ROUTER_BASENAME}>
         <Routes>
           <Route element={<AppLayout />}>
             <Route index element={<LandingPage />} />
