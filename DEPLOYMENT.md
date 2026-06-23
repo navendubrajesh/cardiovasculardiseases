@@ -2,11 +2,11 @@
 
 ## 1. GitHub Pages (website)
 
-**URL:** https://navendubrajesh.github.io/cardiovasculardiseases/
+**URL:** https://navendubrajesh.github.io/AICARDIOLOGIST/
 
 ### One-time setup (GitHub.com)
 
-1. Open [cardiovasculardiseases → Settings → Pages](https://github.com/navendubrajesh/cardiovasculardiseases/settings/pages)
+1. Open [AICARDIOLOGIST → Settings → Pages](https://github.com/navendubrajesh/AICARDIOLOGIST/settings/pages)
 2. **Build and deployment → Source:** select **GitHub Actions**
 3. Save
 
@@ -34,7 +34,7 @@ GitHub Pages is static only — predictions need the FastAPI backend on Render.
 
 1. Go to [dashboard.render.com](https://dashboard.render.com)
 2. **New → Blueprint**
-3. Connect GitHub repo `navendubrajesh/cardiovasculardiseases`
+3. Connect GitHub repo `navendubrajesh/AICARDIOLOGIST`
 4. Render reads `render.yaml` at repo root
 5. Click **Apply** — first deploy trains models (~2–5 min on free tier)
 
@@ -49,7 +49,7 @@ curl https://ai-cardiologist-api.onrender.com/api/health
 ## 3. Full stack test
 
 1. Wait for both GitHub Actions (Pages) and Render to finish
-2. Open https://navendubrajesh.github.io/cardiovasculardiseases/
+2. Open https://navendubrajesh.github.io/AICARDIOLOGIST/
 3. Login: `researcher@example.com` → **Demo Research Lab**
 4. Accept disclaimer → **Predict** page
 

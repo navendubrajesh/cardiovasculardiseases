@@ -11,7 +11,7 @@ $Web = Join-Path $Root "ai-cardiologist-web"
 $Tmp = Join-Path $Root "_ghpages_deploy"
 
 Push-Location $Web
-$env:VITE_BASE_PATH = "/cardiovasculardiseases/"
+$env:VITE_BASE_PATH = "/AICARDIOLOGIST/"
 $env:VITE_API_BASE_URL = "https://ai-cardiologist-api.onrender.com"
 npm run build
 Copy-Item dist/index.html dist/404.html -Force
@@ -29,9 +29,9 @@ if ($LASTEXITCODE -ne 0) { git checkout gh-pages }
 git add -A
 git commit -m "Deploy AI Cardiologist web app $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
 git remote remove origin 2>$null
-git remote add origin https://github.com/navendubrajesh/cardiovasculardiseases.git
+git remote add origin https://github.com/navendubrajesh/AICARDIOLOGIST.git
 git push -f origin gh-pages
 Pop-Location
 
 Write-Host "Done. Enable Pages: Settings -> Pages -> Deploy from branch -> gh-pages / root"
-Write-Host "URL: https://navendubrajesh.github.io/cardiovasculardiseases/"
+Write-Host "URL: https://navendubrajesh.github.io/AICARDIOLOGIST/"

@@ -3,8 +3,8 @@
 Research implementation of **AI Cardiologist**: explainable ML for CVD risk from BRFSS survey data  
 (MS Navendu Brajesh V1.2 thesis — ensemble + ELI5).
 
-**Repository:** [github.com/navendubrajesh/cardiovasculardiseases](https://github.com/navendubrajesh/cardiovasculardiseases)  
-**Live site (after Pages deploy):** `https://navendubrajesh.github.io/cardiovasculardiseases/`
+**Repository:** [github.com/navendubrajesh/AICARDIOLOGIST](https://github.com/navendubrajesh/AICARDIOLOGIST)  
+**Live site (after Pages deploy):** `https://navendubrajesh.github.io/AICARDIOLOGIST/`
 
 ---
 
