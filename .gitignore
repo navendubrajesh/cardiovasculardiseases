@@ -1,3 +1,6 @@
+# Windows deploy temp
+_ghpages_deploy/
+
 # Python
 __pycache__/
 *.py[cod]
