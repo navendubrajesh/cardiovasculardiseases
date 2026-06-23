@@ -21,6 +21,17 @@ FEATURE_COLUMNS = [
 
 DEFAULT_MODEL_ID = "ensemble_voting"
 
+# Population-neutral baseline used to impute predictors the user left blank
+# when a reduced parameter set is selected. Keeps the model runnable while the
+# prediction stays driven by the entered (significant) parameters only.
+NEUTRAL_DEFAULTS: dict[str, float] = {
+    "HighBP": 0, "HighChol": 0, "CholCheck": 1, "BMI": 27, "Smoker": 0,
+    "Stroke": 0, "Diabetes": 0, "PhysActivity": 1, "Fruits": 1, "Veggies": 1,
+    "HvyAlcoholConsump": 0, "AnyHealthcare": 1, "NoDocbcCost": 0, "GenHlth": 3,
+    "MentHlth": 0, "PhysHlth": 0, "DiffWalk": 0, "Sex": 0, "Age": 8,
+    "Education": 4, "Income": 5,
+}
+
 
 @lru_cache(maxsize=16)
 def load_model(model_id: str):
@@ -28,6 +39,20 @@ def load_model(model_id: str):
     if not path.exists():
         raise FileNotFoundError(f"Model artifact not found: {path}")
     return joblib.load(path)
+
+
+def _impute_features(features: dict[str, Any]) -> tuple[dict[str, float], list[str]]:
+    """Fill missing/blank predictors with neutral defaults; return used keys."""
+    row: dict[str, float] = {}
+    entered: list[str] = []
+    for col in FEATURE_COLUMNS:
+        val = features.get(col, None)
+        if val is None or (isinstance(val, str) and val.strip() == ""):
+            row[col] = float(NEUTRAL_DEFAULTS[col])
+        else:
+            row[col] = float(val)
+            entered.append(col)
+    return row, entered
 
 
 def list_available_models() -> list[str]:
@@ -39,7 +64,7 @@ def list_available_models() -> list[str]:
 
 
 def predict_single(model_id: str, features: dict[str, Any]) -> dict[str, Any]:
-    row = {k: features[k] for k in FEATURE_COLUMNS}
+    row, entered = _impute_features(features)
     df = pd.DataFrame([row])
     model = load_model(model_id)
     proba = float(model.predict_proba(df)[0, 1])
@@ -51,6 +76,7 @@ def predict_single(model_id: str, features: dict[str, Any]) -> dict[str, Any]:
         "probability": proba,
         "riskLabel": "elevated" if proba >= 0.5 else "lower",
         "explanation": explanation,
+        "enteredFeatures": entered,
     }
 
 

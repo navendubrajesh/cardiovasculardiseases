@@ -39,3 +39,34 @@ def test_prediction_run(client):
     body = r.json()
     assert "probability" in body
     assert body["modelId"] == "ensemble_voting"
+
+
+@pytest.mark.skipif(not (MODELS_DIR / "ensemble_voting.joblib").exists(), reason="Models not trained")
+def test_partial_features_imputed(client):
+    # Only the top significant predictors; the rest must be imputed server-side.
+    partial = {"GenHlth": 5, "Age": 12, "HighBP": 1, "BMI": 34, "HighChol": 1}
+    r = client.post(
+        "/api/predictions/run",
+        json={"modelId": "ensemble_voting", "features": partial, "disclaimerAcknowledged": True},
+    )
+    assert r.status_code == 200
+    body = r.json()
+    assert "probability" in body
+    assert set(body["enteredFeatures"]) == set(partial.keys())
+
+
+@pytest.mark.skipif(not (MODELS_DIR / "ensemble_voting.joblib").exists(), reason="Models not trained")
+def test_multi_model_prediction(client):
+    r = client.post(
+        "/api/predictions/run-multi",
+        json={
+            "modelIds": ["ensemble_voting", "logistic_regression"],
+            "features": SAMPLE_FEATURES,
+            "disclaimerAcknowledged": True,
+        },
+    )
+    assert r.status_code == 200
+    body = r.json()
+    assert len(body["results"]) == 2
+    ids = {item["modelId"] for item in body["results"]}
+    assert ids == {"ensemble_voting", "logistic_regression"}

@@ -101,6 +101,57 @@ export const DEFAULT_FEATURES = Object.fromEntries(
   BRFSS_FIELDS.map((field) => [field.name, field.defaultValue]),
 ) as Record<string, number>;
 
+/**
+ * Predictors ordered from most to least significant for CVD risk
+ * (derived from ensemble feature-importance ranking, thesis §5.3).
+ * Drives the "parameter count" slider: selecting N enables the top-N here.
+ */
+export const BRFSS_SIGNIFICANCE_ORDER = [
+  'GenHlth',
+  'Age',
+  'HighBP',
+  'BMI',
+  'HighChol',
+  'DiffWalk',
+  'Diabetes',
+  'Stroke',
+  'PhysHlth',
+  'Smoker',
+  'Income',
+  'Sex',
+  'Education',
+  'PhysActivity',
+  'HvyAlcoholConsump',
+  'MentHlth',
+  'CholCheck',
+  'NoDocbcCost',
+  'Veggies',
+  'Fruits',
+  'AnyHealthcare',
+] as const;
+
+export const TOTAL_PARAMETERS = BRFSS_SIGNIFICANCE_ORDER.length;
+export const MIN_PARAMETERS = 10;
+
+/** Names of the top-N most significant predictors. */
+export function topSignificantFeatures(count: number): Set<string> {
+  const n = Math.max(MIN_PARAMETERS, Math.min(TOTAL_PARAMETERS, count));
+  return new Set(BRFSS_SIGNIFICANCE_ORDER.slice(0, n));
+}
+
+export const MODEL_LABELS: Record<string, string> = {
+  logistic_regression: 'Logistic Regression',
+  svm: 'Support Vector Machine',
+  decision_tree: 'Decision Tree',
+  knn: 'k-Nearest Neighbors',
+  random_forest: 'Random Forest',
+  xgboost: 'XGBoost',
+  neural_network: 'Neural Network',
+  naive_bayes: 'Naive Bayes',
+  ensemble_voting: 'Ensemble (Voting)',
+  anfis: 'ANFIS / Fuzzy',
+};
+
 /** Thesis §5.4.2 demo scenarios (AC-065). */
 export const DEMO_SCENARIOS = [
   {

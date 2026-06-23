@@ -26,6 +26,18 @@ class PredictResponse(BaseModel):
     probability: float
     riskLabel: str
     explanation: dict
+    enteredFeatures: list[str] = Field(default_factory=list)
+
+
+class MultiPredictRequest(BaseModel):
+    modelIds: list[str] = Field(..., min_length=1, max_length=20)
+    features: dict[str, Any]
+    disclaimerAcknowledged: bool = False
+
+
+class MultiPredictResponse(BaseModel):
+    results: list[PredictResponse]
+    enteredFeatures: list[str]
 
 
 class BatchPredictRequest(BaseModel):
@@ -61,6 +73,34 @@ async def run_prediction(
             explanation=result.get("explanation"),
         )
     return PredictResponse(id=pred_id, **result)
+
+
+@router.post("/run-multi", response_model=MultiPredictResponse)
+async def run_multi_prediction(
+    body: MultiPredictRequest,
+    session: Annotated[SessionContext, Depends(require_permission("predict.run"))],
+):
+    if not body.disclaimerAcknowledged:
+        raise HTTPException(status_code=400, detail="Clinical disclaimer must be acknowledged")
+    results: list[PredictResponse] = []
+    entered: list[str] = []
+    persist = session.tenant_id != GUEST_TENANT_ID
+    for model_id in body.modelIds:
+        result = predict_single(model_id, body.features)
+        entered = result.get("enteredFeatures", [])
+        pred_id = "ephemeral"
+        if persist:
+            pred_id = save_prediction(
+                tenant_id=session.tenant_id,
+                user_email=session.sub,
+                model_id=model_id,
+                features=body.features,
+                prediction=result["prediction"],
+                probability=result["probability"],
+                explanation=result.get("explanation"),
+            )
+        results.append(PredictResponse(id=pred_id, **result))
+    return MultiPredictResponse(results=results, enteredFeatures=entered)
 
 
 @router.post("/batch")

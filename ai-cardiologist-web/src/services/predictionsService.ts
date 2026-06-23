@@ -31,6 +31,18 @@ export type PredictResponse = {
     prediction: number;
     topContributions: Array<{ feature: string; contribution: number }>;
   };
+  enteredFeatures?: string[];
+};
+
+export type MultiPredictRequest = {
+  modelIds: string[];
+  features: Record<string, number>;
+  disclaimerAcknowledged: boolean;
+};
+
+export type MultiPredictResponse = {
+  results: PredictResponse[];
+  enteredFeatures: string[];
 };
 
 export type BatchPredictRequest = {
@@ -83,6 +95,13 @@ export async function fetchModels(): Promise<ModelsResponse> {
 
 export async function runPrediction(body: PredictRequest): Promise<PredictResponse> {
   return apiJson<PredictResponse>('/api/predictions/run', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
+
+export async function runMultiPrediction(body: MultiPredictRequest): Promise<MultiPredictResponse> {
+  return apiJson<MultiPredictResponse>('/api/predictions/run-multi', {
     method: 'POST',
     body: JSON.stringify(body),
   });
