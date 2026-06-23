@@ -29,6 +29,37 @@ def test_active_tenant_jwt():
     assert "token" in r.json()
 
 
+def test_social_login_ephemeral():
+    client = TestClient(app)
+    for provider in ("google", "github", "apple", "linkedin"):
+        r = client.post(
+            "/api/auth/social",
+            json={"provider": provider, "displayName": "Guest User"},
+        )
+        assert r.status_code == 200
+        body = r.json()
+        assert body["tenantId"] == "guest-demo"
+        assert body["role"] == "researcher"
+        assert body["homePath"] == "/predict"
+        assert body["user"]["provider"] == provider
+        assert "token" in body
+
+
+def test_guest_history_is_ephemeral(monkeypatch):
+    monkeypatch.setenv("DEV_SKIP_AUTH", "false")
+    client = TestClient(app)
+    r = client.post(
+        "/api/auth/social",
+        json={"provider": "google", "displayName": "Guest User"},
+    )
+    token = r.json()["token"]
+    r = client.get("/api/predictions/history", headers={"Authorization": f"Bearer {token}"})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["ephemeral"] is True
+    assert body["predictions"] == []
+
+
 def test_tenant_isolation_predictions_history():
     init_db()
     seed_demo_data()

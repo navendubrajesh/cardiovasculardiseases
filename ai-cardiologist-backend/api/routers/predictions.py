@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 
 from ..db import list_predictions, save_prediction
 from ..deps import SessionContext, require_permission
+from ..routers.auth import GUEST_TENANT_ID
 from ..ml_service import DEFAULT_MODEL_ID, FEATURE_COLUMNS, list_available_models, predict_batch, predict_single
 
 router = APIRouter(prefix="/api/predictions", tags=["predictions"])
@@ -48,15 +49,17 @@ async def run_prediction(
     if not body.disclaimerAcknowledged:
         raise HTTPException(status_code=400, detail="Clinical disclaimer must be acknowledged")
     result = predict_single(body.modelId, body.features)
-    pred_id = save_prediction(
-        tenant_id=session.tenant_id,
-        user_email=session.sub,
-        model_id=body.modelId,
-        features=body.features,
-        prediction=result["prediction"],
-        probability=result["probability"],
-        explanation=result.get("explanation"),
-    )
+    pred_id = "ephemeral"
+    if session.tenant_id != GUEST_TENANT_ID:
+        pred_id = save_prediction(
+            tenant_id=session.tenant_id,
+            user_email=session.sub,
+            model_id=body.modelId,
+            features=body.features,
+            prediction=result["prediction"],
+            probability=result["probability"],
+            explanation=result.get("explanation"),
+        )
     return PredictResponse(id=pred_id, **result)
 
 
@@ -73,5 +76,7 @@ async def run_batch(
 async def prediction_history(
     session: Annotated[SessionContext, Depends(require_permission("predict.run"))],
 ):
+    if session.tenant_id == GUEST_TENANT_ID:
+        return {"predictions": [], "tenantId": session.tenant_id, "ephemeral": True}
     rows = list_predictions(session.tenant_id)
     return {"predictions": rows, "tenantId": session.tenant_id}

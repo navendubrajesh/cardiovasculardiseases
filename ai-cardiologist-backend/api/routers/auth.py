@@ -3,14 +3,17 @@ from __future__ import annotations
 from typing import Literal
 
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 from ..auth.jwt import sign_session_token
 from ..db import get_membership, list_tenants_for_email
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
+GUEST_TENANT_ID = "guest-demo"
+
 AppRole = Literal["owner", "admin", "researcher", "individual"]
+SocialProvider = Literal["google", "github", "apple", "linkedin"]
 
 
 class AuthSessionRequest(BaseModel):
@@ -38,6 +41,25 @@ class ActiveTenantResponse(BaseModel):
     role: AppRole
     tenantId: str
     homePath: str
+
+
+class SocialLoginRequest(BaseModel):
+    provider: SocialProvider
+    displayName: str = Field(min_length=1, max_length=120)
+
+
+class SocialUserProfile(BaseModel):
+    displayName: str
+    email: str
+    provider: SocialProvider
+
+
+class SocialLoginResponse(BaseModel):
+    token: str
+    role: AppRole
+    tenantId: str
+    homePath: str
+    user: SocialUserProfile
 
 
 def role_home_path(role: AppRole) -> str:
@@ -68,4 +90,23 @@ async def activate_tenant(body: ActiveTenantRequest) -> ActiveTenantResponse:
         role=role,
         tenantId=body.tenantId,
         homePath=role_home_path(role),
+    )
+
+
+@router.post("/social", response_model=SocialLoginResponse)
+async def social_login(body: SocialLoginRequest) -> SocialLoginResponse:
+    """Ephemeral guest JWT — no membership or user rows are written."""
+    email = f"guest-{body.provider}@aicardiologist.local"
+    role: AppRole = "researcher"
+    token = sign_session_token(sub=email, tenant_id=GUEST_TENANT_ID, role=role)
+    return SocialLoginResponse(
+        token=token,
+        role=role,
+        tenantId=GUEST_TENANT_ID,
+        homePath="/predict",
+        user=SocialUserProfile(
+            displayName=body.displayName,
+            email=email,
+            provider=body.provider,
+        ),
     )

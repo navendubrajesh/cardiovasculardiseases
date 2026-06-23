@@ -6,6 +6,7 @@ import { mapRoleToPermissions, type AppRole, type Permission } from '../lib/perm
 export type AuthUser = {
   name: string;
   email: string;
+  provider?: 'google' | 'github' | 'apple' | 'linkedin';
 };
 
 interface AuthContextType {
