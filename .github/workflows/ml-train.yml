@@ -1,0 +1,26 @@
+name: Train Models
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'ai-cardiologist-ml/**'
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ai-cardiologist-ml
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - run: PYTHONPATH=src python scripts/train.py train --out models --synthetic-rows 4000
+      - run: PYTHONPATH=src pytest -q
+      - uses: actions/upload-artifact@v4
+        with:
+          name: model-artifacts
+          path: ai-cardiologist-ml/models/

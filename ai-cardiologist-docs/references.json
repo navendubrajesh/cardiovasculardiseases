@@ -1,0 +1,371 @@
+[
+  {
+    "id": "REF_2_20251216160900",
+    "title": "Integrating explainable machine learning and user-centric model for diagnosing cardiovascular disease: A novel approach | 2024",
+    "topics": [
+      "XAI",
+      "ML",
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_4_20251216160900",
+    "title": "Ensemble learning with explainable AI for improved heart disease prediction | 2025",
+    "topics": [
+      "XAI",
+      "ML",
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_5_20251216160900",
+    "title": "Explainable coronary artery disease prediction model using AutoML and SHAP | 2024",
+    "topics": [
+      "XAI"
+    ]
+  },
+  {
+    "id": "REF_6_20251216160900",
+    "title": "A proposed technique for predicting heart disease using machine learning and explainable methods | 2024",
+    "topics": [
+      "XAI",
+      "ML",
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_3_20251216162048",
+    "title": "HXAI-ML: A hybrid explainable artificial intelligence based machine learning model for cardiovascular heart disease detection | 2025",
+    "topics": [
+      "XAI",
+      "ML",
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_7_20251216165902",
+    "title": "FUTURE-AI: international consensus guideline for trustworthy and deployable artificial intelligence in healthcare | 2025",
+    "topics": [
+      "Ethics"
+    ]
+  },
+  {
+    "id": "REF_8_20251216165906",
+    "title": "Implementation frameworks for end-to-end clinical AI: derivation of the SALIENT framework | 2023",
+    "topics": [
+      "General"
+    ]
+  },
+  {
+    "id": "REF_9_20251216165907",
+    "title": "Use of Artificial Intelligence in Improving Outcomes in Heart Disease: A Scientific Statement From the American Heart Association | 2024",
+    "topics": [
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_10_20251216165908",
+    "title": "A practical framework for appropriate implementation and review of artificial intelligence (FAIR-AI) in healthcare | 2025",
+    "topics": [
+      "Ethics"
+    ]
+  },
+  {
+    "id": "REF_11_20251216171307",
+    "title": "Artificial intelligence in healthcare: comprehensive overview and future potential | 2024",
+    "topics": [
+      "General"
+    ]
+  },
+  {
+    "id": "REF_12_20251216171307",
+    "title": "Artificial intelligence in healthcare delivery: Prospects and implications | 2024",
+    "topics": [
+      "General"
+    ]
+  },
+  {
+    "id": "REF_13_20251216171307",
+    "title": "AI in healthcare service quality: systematic review | 2025",
+    "topics": [
+      "General"
+    ]
+  },
+  {
+    "id": "REF_14_20251216171307",
+    "title": "Artificial intelligence in predictive healthcare: a systematic review | 2025",
+    "topics": [
+      "General"
+    ]
+  },
+  {
+    "id": "REF_15_20251216171307",
+    "title": "A comprehensive review of machine learning for heart disease prediction | 2025",
+    "topics": [
+      "ML",
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_16_20251216171307",
+    "title": "Effectiveness of ML and DL models in forecasting heart disease | 2025",
+    "topics": [
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_17_20251216171307",
+    "title": "Machine Learning Model for Predicting Coronary Heart Disease using SHAP | 2025",
+    "topics": [
+      "ML",
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_18_20251216171307",
+    "title": "ML-Based Framework for Heart Disease Diagnosis | 2025",
+    "topics": [
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_19_20251216171307",
+    "title": "Heart Disease Detection Using ML Models | 2024",
+    "topics": [
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_20_20251216171307",
+    "title": "AI in Predictive Healthcare (expanded) | 2025",
+    "topics": [
+      "General"
+    ]
+  },
+  {
+    "id": "REF_21_20251216174832",
+    "title": "Artificial intelligence\ufffdenabled electrocardiography for early detection of cardiovascular disease | 2025",
+    "topics": [
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_22_20251216174832",
+    "title": "Machine learning based prediction models for cardiovascular disease risk using electronic health records data: systematic review and meta-analysis | 2025",
+    "topics": [
+      "ML",
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_23_20251216174832",
+    "title": "Artificial intelligence in cardiovascular imaging and disease classification | 2025",
+    "topics": [
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_24_20251216180011",
+    "title": "Selecting training sets for support vector machines: a review | 2019",
+    "topics": [
+      "General"
+    ]
+  },
+  {
+    "id": "REF_25_20251216180011",
+    "title": "Machine learning for early detection of COVID-19 high-risk patients | 2021",
+    "topics": [
+      "ML"
+    ]
+  },
+  {
+    "id": "REF_26_20251216180011",
+    "title": "Support vector machine models for clinical risk prediction | 2021",
+    "topics": [
+      "General"
+    ]
+  },
+  {
+    "id": "REF_27_20251216180012",
+    "title": "Decision tree-based prediction of cardiovascular disease | 2021",
+    "topics": [
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_28_20251216180012",
+    "title": "Decision tree models for stroke risk prediction | 2021",
+    "topics": [
+      "General"
+    ]
+  },
+  {
+    "id": "REF_29_20251216180012",
+    "title": "Adaptive neuro-fuzzy inference system for heart disease prediction | 2018",
+    "topics": [
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_30_20251216180012",
+    "title": "Fuzzy logic-based clinical decision support systems in cardiology | 2021",
+    "topics": [
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_31_20251216180012",
+    "title": "The practical implementation of artificial neural networks in medicine | 2020",
+    "topics": [
+      "General"
+    ]
+  },
+  {
+    "id": "REF_32_20251216180012",
+    "title": "Efficient heart disease prediction using K-nearest neighbor algorithm | 2017",
+    "topics": [
+      "CVD"
+    ]
+  },
+  {
+    "id": "REF_33_20251216180012",
+    "title": "Random forests | 2001",
+    "topics": [
+      "ML"
+    ]
+  },
+  {
+    "id": "REF_35_20251216180012",
+    "title": "FUTURE-AI: international consensus guideline for trustworthy and deployable AI in healthcare | 2025",
+    "topics": [
+      "Ethics"
+    ]
+  },
+  {
+    "id": "REF_36_20251216180012",
+    "title": "The ethics of algorithms: mapping the debate | 2016",
+    "topics": [
+      "Ethics"
+    ]
+  },
+  {
+    "id": "REF_37_20251216180012",
+    "title": "A practical framework for appropriate implementation and review of AI (FAIR-AI) in healthcare | 2025",
+    "topics": [
+      "Ethics"
+    ]
+  },
+  {
+    "id": "REF_38_20251216180012",
+    "title": "Ethics guidelines for trustworthy artificial intelligence | 2019",
+    "topics": [
+      "Ethics"
+    ]
+  },
+  {
+    "id": "REF_38_20251217115708",
+    "title": "A survey of explainable artificial intelligence in healthcare: Concepts, applications, and challenges | 2024",
+    "topics": [
+      "XAI"
+    ]
+  },
+  {
+    "id": "REF_39_20251217115708",
+    "title": "Explainable Artificial Intelligence for Medical Applications: A Review | 2025",
+    "topics": [
+      "XAI"
+    ]
+  },
+  {
+    "id": "REF_40_20251217115708",
+    "title": "Explainable and interpretable artificial intelligence in the medical field: challenges and solutions | 2024",
+    "topics": [
+      "XAI"
+    ]
+  },
+  {
+    "id": "REF_41_20251217115708",
+    "title": "How Explainable Artificial Intelligence Can Increase Trust in Healthcare | 2024",
+    "topics": [
+      "XAI",
+      "Ethics"
+    ]
+  },
+  {
+    "id": "REF_42_20251217115708",
+    "title": "Explainable AI in Clinical Decision Support Systems: Applications and Challenges | 2025",
+    "topics": [
+      "XAI"
+    ]
+  },
+  {
+    "id": "REF_43_20251217135009",
+    "title": "Ethics of trustworthy AI in healthcare: Challenges and opportunities | 2025",
+    "topics": [
+      "Ethics"
+    ]
+  },
+  {
+    "id": "REF_44_20251217135009",
+    "title": "Evaluating accountability, transparency, and bias in AI-assisted healthcare decision-making | 2025",
+    "topics": [
+      "General"
+    ]
+  },
+  {
+    "id": "REF_45_20251217135009",
+    "title": "Privacy, ethics, transparency, and accountability in AI: A data-driven framework | 2025",
+    "topics": [
+      "Ethics"
+    ]
+  },
+  {
+    "id": "REF_46_20251217135009",
+    "title": "Explainability, transparency and black box challenges of AI in healthcare | 2024",
+    "topics": [
+      "XAI"
+    ]
+  },
+  {
+    "id": "REF_47_20251217135054",
+    "title": "Ethics of AI in healthcare: A scoping review of ethical and equity concerns | 2025",
+    "topics": [
+      "Ethics"
+    ]
+  },
+  {
+    "id": "REF_48_20251217140424",
+    "title": "Evaluation metrics and statistical tests for machine learning | 2024",
+    "topics": [
+      "ML"
+    ]
+  },
+  {
+    "id": "REF_49_20251217140400",
+    "title": "A review of model evaluation metrics for machine learning in genetics and genomics | 2024",
+    "topics": [
+      "ML"
+    ]
+  },
+  {
+    "id": "REF_50_20251217140400",
+    "title": "Evaluation of traditional machine learning algorithms for classification performance | 2025",
+    "topics": [
+      "ML"
+    ]
+  },
+  {
+    "id": "REF_51_20251217140400",
+    "title": "Evaluation metrics in medical imaging AI: accuracy, ROC, precision, recall | 2025",
+    "topics": [
+      "General"
+    ]
+  },
+  {
+    "id": "REF_52_20251217140400",
+    "title": "Comparing the Performance of Machine Learning Models: A systematic evaluation using AUC and classification metrics | 2025",
+    "topics": [
+      "ML"
+    ]
+  }
+]

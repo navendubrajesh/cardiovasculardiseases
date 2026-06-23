@@ -1,0 +1,25 @@
+I am publishing a research paper in MIT. I have completed my research paper but then need to site some refrence papers. 
+I need 5 research documents published in last 3 years which are widely sited. The research needs to be around the  text inclosed in :::. Please take as much time as you need.
+I need to refer to them in my research paper. 
+
+I need the research paper details in a table format. The sample of the table is described in |||
+:::
+
+F.	Model Training and Evaluation 
+Each machine learning algorithm was trained on the training dataset and evaluated using the testing dataset. The evaluation metrics included accuracy, precision, recall, F1-score, and area under the receiver operating characteristic curve (AUC-ROC). The models were compared based on these metrics, as well as their explainability, Performance, complexity and computational cost. 
+
+
+:::
+
+
+
+|||
+#	Type of Source	Author(s)	Title	Journal Name	Year	Volume / Issue	Pages / Article ID	DOI	Import
+1	Journal Article	Mienye, I. D.; Obaido, G.; Jere, N.; Mienye, E.; Aruleba, K.; Emmanuel, I. D.	A survey of explainable artificial intelligence in healthcare: Concepts, applications, and challenges	Informatics in Medicine Unlocked	2024	51	101587	https://doi.org/10.1016/j.imu.2024.101587	Yes
+2	Journal Article	Sun, Q.; Akman, A.; Schuller, B. W.	Explainable Artificial Intelligence for Medical Applications: A Review	ACM Transactions on Computing for Healthcare	2025	6(2)	Article 17	https://doi.org/10.1145/3709367	Yes
+3	Journal Article	Frasca, M.; et al.	Explainable and interpretable artificial intelligence in the medical field: challenges and solutions	AI & Healthcare Journal (published on Springer)	2024	(Article)	——	https://doi.org/10.1007/s44163-024-00114-7	Yes
+4	Journal Article	Rosenbacke, R.; et al.	How Explainable Artificial Intelligence Can Increase Trust in Healthcare	JMIR AI	2024	1	e53207	https://doi.org/10.2196/53207	Yes
+
+
+
+|||

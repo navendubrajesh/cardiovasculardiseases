@@ -1,0 +1,62 @@
+[
+  {
+    "feature": "Diabetes",
+    "weight": 0.06239999999999999
+  },
+  {
+    "feature": "Smoker",
+    "weight": 0.05040000000000004
+  },
+  {
+    "feature": "HighChol",
+    "weight": 0.04560000000000004
+  },
+  {
+    "feature": "HighBP",
+    "weight": 0.03520000000000003
+  },
+  {
+    "feature": "PhysActivity",
+    "weight": 0.018000000000000016
+  },
+  {
+    "feature": "GenHlth",
+    "weight": 0.007600000000000007
+  },
+  {
+    "feature": "CholCheck",
+    "weight": 0.0
+  },
+  {
+    "feature": "BMI",
+    "weight": 0.0
+  },
+  {
+    "feature": "Stroke",
+    "weight": 0.0
+  },
+  {
+    "feature": "Fruits",
+    "weight": 0.0
+  },
+  {
+    "feature": "Veggies",
+    "weight": 0.0
+  },
+  {
+    "feature": "HvyAlcoholConsump",
+    "weight": 0.0
+  },
+  {
+    "feature": "AnyHealthcare",
+    "weight": 0.0
+  },
+  {
+    "feature": "NoDocbcCost",
+    "weight": 0.0
+  },
+  {
+    "feature": "MentHlth",
+    "weight": 0.0
+  }
+]

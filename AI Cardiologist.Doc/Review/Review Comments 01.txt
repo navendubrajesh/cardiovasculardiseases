@@ -1,0 +1,65 @@
+Summary
+This paper proposes an “AI Cardiologist” system that predicts cardiovascular disease (CVD) using nonclinical, self-reported survey data from the CDC BRFSS, evaluates multiple classifiers, selects an ensemble as the best-performing model, and claims to provide global and local explanations using the ELI5 package. The authors report an accuracy of 89.1% and argue that explainability builds trust for clinical integration while potentially reducing diagnostic time and costs. The manuscript emphasizes transparency and ethics, and outlines broad recommendations for adoption and future work.
+
+Strengths
+Technical novelty and innovation
+Addresses an important application—CVD risk prediction—from large-scale, accessible, nonclinical survey data, which could enable low-cost population-level screening.
+Emphasizes model explainability and transparency as core design principles, aiming to support clinician and patient trust.
+Experimental rigor and validation
+Attempts a comparative assessment across several standard classifiers (SVM, DT, NN, KNN, RF, Ensembles), with stated evaluation metrics (accuracy, precision, recall, F1-score, AUC-ROC).
+Clarity of presentation
+High-level problem motivation and public-health significance are clearly articulated.
+Methodological stages (preprocessing, model training, evaluation, “ELI5”-based explanations) are outlined in a standard pipeline structure.
+Significance of contributions
+The topic—explainable AI for CVD prediction—has substantial clinical and societal relevance.
+If substantiated, a BRFSS-based, interpretable risk predictor could complement existing clinical risk scores in resource-limited settings.
+Weaknesses
+Technical limitations or concerns
+Central claims (e.g., 89.1% accuracy; cost/time reduction; validation with healthcare professionals) are not supported with sufficient detail, data, or analysis; no result tables, confidence intervals, or calibration/clinical-utility analyses are provided.
+The target label is unspecified (which BRFSS variable defines “cardiovascular disease”?), making the problem definition and any class balance characteristics unclear; the risk of label noise in self-reported surveys is not addressed.
+No discussion of class imbalance handling, stratification, cross-validation, hyperparameter tuning, or leakage controls; the experimental setup risks overfitting and optimism bias.
+ELI5 is invoked as a “framework,” but its concrete use, outputs, and validation of explanation faithfulness are not demonstrated.
+Experimental gaps or methodological issues
+No external validation (e.g., BRFSS different years, NHANES), subgroup/fairness analysis (sex, race/ethnicity, age), or robustness checks; no baseline comparison to established clinical risk scores (e.g., Framingham, PCE/ASCVD).
+AUC-ROC, precision-recall, and calibration—critical for imbalanced, screening-type tasks—are not reported despite being listed as metrics.
+Cost/time reduction claims are speculative without health-economic modeling, workflow analysis, or prospective evaluation.
+Clarity or presentation issues
+The manuscript contains placeholders (e.g., “IMAGE”, “• ?”, “e-mail address if desired”), inconsistent formatting, and typos that impede assessment.
+The literature review is minimal and misses foundational and recent relevant work on CVD risk prediction, explainability, and clinical integration.
+Missing related work or comparisons
+No comparison to ontology-based, fuzzy rule-based, or foundation/SSL approaches highlighted in recent literature; lacks discussion of how survey-based modeling compares to ECG/CMR/ultrasound-driven predictors or streaming, rules-driven pipelines.
+No benchmarking against interpretable baselines (e.g., logistic regression with calibrated probabilities) or clinical scores.
+Detailed Comments
+Technical soundness evaluation
+The learning problem is insufficiently specified: the outcome variable, cohort selection, inclusion/exclusion criteria, and final sample sizes after cleaning are not described. BRFSS contains multiple CVD-related variables (e.g., prior MI, CHD, stroke), and combining/defining a single binary target requires justification and handling of comorbidity.
+The preprocessing description is generic (median/mode imputation, one-hot encoding, scaling) without detailing variable transformations (e.g., BMI computation), missingness patterns, or survey weights—important for BRFSS representativeness.
+The split protocol (random 70/30) is likely inadequate; stratified, patient-level splits with nested cross-validation and hyperparameter tuning are needed to avoid bias and to report uncertainty (CI via bootstrapping). No specifics on model hyperparameters, early stopping, or regularization.
+Explainability is asserted but not demonstrated: no global feature importance plots, no local explanations on representative cases, no evaluation of explanation stability/faithfulness, or clinician review protocols (e.g., inter-rater agreement, Likert ratings, workflow utility).
+Experimental evaluation assessment
+Reported metrics are incomplete and unverifiable. The claimed 89.1% accuracy for an ensemble on noisy, self-reported survey outcomes is unusually high relative to public reports for similar tasks; without AUROC, AUPRC, class prevalence, and confidence intervals, claims are not credible.
+No calibration assessment (reliability curves, Brier score) or decision-curve analysis—both essential for screening tools.
+No statistical tests comparing models; no ablation on features or imputation strategies; no sensitivity analyses (e.g., varying thresholds, cost-sensitive learning).
+No external validation; no subgroup fairness analyses across sex, race/ethnicity, age, income/education—critical for healthcare AI and BRFSS-based modeling.
+Comparison with related work (using the summaries provided)
+Compared to ontology-based or rules/fuzzy pipelines for CVD (e.g., ontology classifier on Kaggle CVD; fuzzy CEP system), this work lacks the strong interpretability guarantees and real-time considerations those systems prioritize, and does not benchmark against them.
+Recent multimodal foundation/SSL works (e.g., CSFM, CMR-to-ECG/tabular transfer) and imaging/ECG pipelines demonstrate rigorous external validation, calibration, and decision-curve analyses; the present study does not meet those standards.
+Tabular ECG-based triage work and ultrasound video-based biomarkers report robust AUROC with CIs and clinical-utility analyses; again, the current paper omits these essentials.
+Most importantly, there is no comparison to standard clinical risk calculators (Framingham, ASCVD/PCE), which form a de facto baseline for CVD risk estimation in practice.
+Discussion of broader impact and significance
+The potential impact of low-cost, explainable, survey-based CVD screening is significant, especially for resource-limited settings. However, without rigorous validation, calibration, subgroup fairness, and prospective studies, deployment risks automation bias, inequitable performance, and mis-triage.
+Ethical discussion should be grounded in empirical fairness and harm analyses. Transparency alone is insufficient; the system must be safe, unbiased, and clinically useful across demographics.
+Claims about cost and time savings require workflow integration studies and health-economic modeling; absent such analyses, these claims should be framed as hypotheses for future work.
+For explainability, consider complementing ELI5 with SHAP for tree ensembles, counterfactual explanations for patient-level interpretability, and human-factors evaluations with clinicians.
+Questions for Authors
+What exact BRFSS year(s) and variables were used, and how was the binary CVD target defined (e.g., prior MI, CHD, stroke, composite)? Please provide class prevalence and post-cleaning sample sizes.
+Did you apply survey weights from BRFSS in training/evaluation? If not, how do you address representativeness and potential bias?
+How did you handle class imbalance (if any)? Was stratified splitting used? What was the validation protocol (cross-validation, nested CV), and how were hyperparameters tuned?
+Please provide full quantitative results (per-model: AUROC with 95% CI, AUPRC, accuracy, precision, recall, F1, calibration/Brier score), and confusion matrices at a clinically meaningful threshold.
+What were the exact hyperparameter settings and implementations for each classifier? How was the ensemble constructed (stacking/voting/weighting), and how were weights learned?
+Can you show representative global and local explanations (e.g., SHAP summary and force plots) and describe how you assessed their faithfulness/stability? Why choose ELI5 over SHAP for tree ensembles?
+Did you perform subgroup analyses by age, sex, race/ethnicity, income, and education? If so, what were the disparities in AUROC/calibration, and how do you mitigate them?
+Which clinician groups reviewed the explanations and outputs? What was the study design, sample size, and quantitative outcomes (e.g., usability scales, trust ratings)?
+Please benchmark against clinical risk calculators (Framingham, ASCVD/PCE) and a calibrated logistic regression baseline; how does your model compare in discrimination, calibration, and decision-curve net benefit?
+What evidence supports the claimed reductions in diagnosis time and cost? Can you provide a simple health-economic model or workflow analysis?
+Overall Assessment
+The paper addresses a highly important problem and appropriately emphasizes explainability and ethical deployment. However, in its current form the work lacks critical details for reproducibility, methodological rigor, and empirical support of its central claims. The dataset and label definition are unspecified; the evaluation protocol is underdescribed; key results (AUROC, calibration, CIs) are absent; there is no external validation, subgroup fairness analysis, or comparison to standard clinical risk scores; and the clinician validation and cost/time reduction claims are not substantiated. The manuscript also contains clear placeholders and formatting artifacts, indicating it is not yet ready for a top-tier venue. I recommend rejection at this stage. A substantially revised submission should define the target and cohort precisely, strengthen the experimental design (nested CV, calibration, decision-curve analysis), include robust baselines (clinical scores, calibrated LR), add external and subgroup validations, present concrete explainability outputs with human-factors evaluation, and ground cost/time claims in data.

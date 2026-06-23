@@ -1,0 +1,14 @@
+I have written a research paper for MIT. This is based on my detailed work. My review comments are enclosed in ::: 
+My detailed work is documented in "MS Navendu Brajesh V1.2" and the other document is my research paper. 
+
+Please analyse each of the review comments and fix them in my research work. please make the changes in bold 
+
+Use chain of thought to analyse and fix the 
+:::
+Weaknesses
+•	Technical limitations or concerns
+o	Central claims (e.g., 89.1% accuracy; cost/time reduction; validation with healthcare professionals) are not supported with sufficient detail, data, or analysis; no result tables, confidence intervals, or calibration/clinical-utility analyses are provided.
+o	The target label is unspecified (which BRFSS variable defines “cardiovascular disease”?), making the problem definition and any class balance characteristics unclear; the risk of label noise in self-reported surveys is not addressed.
+o	No discussion of class imbalance handling, stratification, cross-validation, hyperparameter tuning, or leakage controls; the experimental setup risks overfitting and optimism bias.
+o	ELI5 is invoked as a “framework,” but its concrete use, outputs, and validation of explanation faithfulness are not demonstrated.
+:::

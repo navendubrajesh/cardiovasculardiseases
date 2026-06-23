@@ -1,0 +1,27 @@
+{
+  "models": [
+    "logistic_regression",
+    "svm",
+    "decision_tree",
+    "knn",
+    "random_forest",
+    "xgboost",
+    "neural_network",
+    "naive_bayes",
+    "ensemble_voting",
+    "anfis"
+  ],
+  "default_model_id": "ensemble_voting",
+  "all_model_ids": [
+    "logistic_regression",
+    "svm",
+    "decision_tree",
+    "knn",
+    "random_forest",
+    "xgboost",
+    "neural_network",
+    "naive_bayes",
+    "ensemble_voting",
+    "anfis"
+  ]
+}
