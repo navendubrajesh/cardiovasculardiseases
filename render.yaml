@@ -1,0 +1,26 @@
+# Render.com — AI Cardiologist API (free tier)
+# Connect repo at https://dashboard.render.com → New → Blueprint
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: ai-cardiologist-api
+    runtime: python
+    plan: free
+    buildCommand: |
+      pip install -r ai-cardiologist-backend/requirements.txt
+      pip install -r ai-cardiologist-ml/requirements.txt
+      PYTHONPATH=ai-cardiologist-ml/src python ai-cardiologist-ml/scripts/train.py train --out ai-cardiologist-ml/models --synthetic-rows 4000
+    startCommand: cd ai-cardiologist-backend && uvicorn api.index:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: MODELS_DIR
+        value: /opt/render/project/src/ai-cardiologist-ml/models/artifacts
+      - key: CORS_ORIGINS
+        value: https://navendubrajesh.github.io,http://localhost:5179,http://127.0.0.1:5179
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DEV_SKIP_AUTH
+        value: "false"

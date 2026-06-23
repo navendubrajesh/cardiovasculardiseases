@@ -1,8 +1,12 @@
 const DEFAULT_API = 'http://127.0.0.1:8000';
+const RENDER_API = 'https://ai-cardiologist-api.onrender.com';
 
 export function getApiBaseUrl(): string {
   const configured = import.meta.env.VITE_API_BASE_URL?.trim();
   if (configured) return configured.replace(/\/$/, '');
+  if (typeof window !== 'undefined' && window.location.hostname.endsWith('github.io')) {
+    return RENDER_API;
+  }
   return DEFAULT_API;
 }
 

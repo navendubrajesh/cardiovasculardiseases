@@ -19,7 +19,11 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="AI Cardiologist API", lifespan=lifespan)
 
-origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",")
+origins = os.getenv(
+    "CORS_ORIGINS",
+    "http://localhost:5173,http://localhost:5179,http://127.0.0.1:5173,http://127.0.0.1:5179,"
+    "https://navendubrajesh.github.io",
+).split(",")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in origins],
