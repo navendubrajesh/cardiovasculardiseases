@@ -78,7 +78,8 @@ export const ModelsPage = () => {
       <div>
         <h1 className="text-3xl font-bold">Model leaderboard</h1>
         <p className="mt-2 text-slate-600">
-          Interactive charts from <code>/api/research/metrics</code> mirroring thesis §5.3 (AC-064).
+          Benchmark metrics for all 10 models (30% stratified holdout). Holdout test rows are in{' '}
+          <code>ai-cardiologist-ml/data/benchmark_holdout_test.xlsx</code> for batch upload.
         </p>
       </div>
 
