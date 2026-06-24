@@ -25,7 +25,7 @@ if (-not $SkipTrain) {
 Write-Host "Starting API on http://127.0.0.1:8000 ..."
 Start-Process powershell -ArgumentList @(
     "-NoExit", "-Command",
-    "Set-Location '$Backend'; `$env:MODELS_DIR='$ModelsDir'; `$env:CORS_ORIGINS='http://localhost:5179,http://127.0.0.1:5179'; uvicorn api.index:app --reload --port 8000"
+    "Set-Location '$Backend'; `$env:MODELS_DIR='$ModelsDir'; `$env:CORS_ORIGINS='http://localhost:5179,http://127.0.0.1:5179'; python -m uvicorn api.index:app --reload --port 8000"
 )
 
 Start-Sleep -Seconds 2
@@ -33,7 +33,7 @@ Start-Sleep -Seconds 2
 Write-Host "Starting web on http://localhost:5179 ..."
 Start-Process powershell -ArgumentList @(
     "-NoExit", "-Command",
-    "Set-Location '$Web'; npm run dev"
+    "Set-Location '$Web'; Remove-Item Env:VITE_BASE_PATH -ErrorAction SilentlyContinue; Remove-Item Env:VITE_API_BASE_URL -ErrorAction SilentlyContinue; npm run dev"
 )
 
 Write-Host ""
