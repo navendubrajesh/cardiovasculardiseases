@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -22,6 +23,34 @@ from sklearn.model_selection import StratifiedKFold, cross_val_score, train_test
 
 from .constants import DEFAULT_MODEL_ID, MODEL_IDS
 from .models import build_model
+
+MODEL_LABELS: dict[str, str] = {
+    "logistic_regression": "Logistic Regression",
+    "svm": "Support Vector Machine",
+    "decision_tree": "Decision Tree",
+    "knn": "k-Nearest Neighbors",
+    "random_forest": "Random Forest",
+    "xgboost": "XGBoost",
+    "neural_network": "Neural Network",
+    "naive_bayes": "Naive Bayes",
+    "ensemble_voting": "Ensemble (Voting)",
+    "anfis": "ANFIS / Fuzzy",
+}
+
+
+def sanitize_for_json(obj: Any) -> Any:
+    """Replace NaN/Inf so FastAPI and browsers can serialize metrics safely."""
+    if isinstance(obj, dict):
+        return {k: sanitize_for_json(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [sanitize_for_json(v) for v in obj]
+    if isinstance(obj, float):
+        if math.isnan(obj) or math.isinf(obj):
+            return None
+        return obj
+    if isinstance(obj, (np.floating, np.integer)):
+        return sanitize_for_json(float(obj))
+    return obj
 
 
 def stratified_train_test_split(x, y, test_size=0.3, random_state=42):
@@ -50,11 +79,13 @@ def evaluate_model(model, x_test, y_test) -> dict[str, Any]:
     }
 
     fpr, tpr, thresholds = roc_curve(y_test, y_proba)
-    metrics["roc_curve"] = {
-        "fpr": fpr.tolist(),
-        "tpr": tpr.tolist(),
-        "thresholds": thresholds.tolist(),
-    }
+    metrics["roc_curve"] = sanitize_for_json(
+        {
+            "fpr": fpr.tolist(),
+            "tpr": tpr.tolist(),
+            "thresholds": thresholds.tolist(),
+        }
+    )
 
     prob_true, prob_pred = calibration_curve(y_test, y_proba, n_bins=10, strategy="quantile")
     metrics["calibration"] = {
@@ -116,7 +147,46 @@ def train_all_models(
     return leaderboard
 
 
+def leaderboard_summary(leaderboard: dict[str, Any]) -> dict[str, Any]:
+    """Compact metrics for API / Models page (no ROC curves or calibration arrays)."""
+    models: dict[str, Any] = {}
+    for mid, raw in leaderboard.get("models", {}).items():
+        label = MODEL_LABELS.get(mid, mid)
+        if "error" in raw:
+            models[mid] = {"label": label, "error": raw["error"]}
+            continue
+        acc = raw.get("accuracy")
+        models[mid] = {
+            "label": label,
+            "accuracy": acc,
+            "test_accuracy": acc,
+            "train_accuracy": raw.get("train_accuracy"),
+            "precision": raw.get("precision"),
+            "recall": raw.get("recall"),
+            "f1": raw.get("f1"),
+            "roc_auc": raw.get("roc_auc"),
+            "brier_score": raw.get("brier_score"),
+            "train_test_gap": raw.get("train_test_gap"),
+            "cv_roc_auc_mean": raw.get("cv_roc_auc_mean"),
+            "cv_roc_auc_std": raw.get("cv_roc_auc_std"),
+            "confusion_matrix": raw.get("confusion_matrix"),
+        }
+    return sanitize_for_json(
+        {
+            "defaultModelId": leaderboard.get("default_model_id", DEFAULT_MODEL_ID),
+            "test_size": leaderboard.get("test_size"),
+            "random_state": leaderboard.get("random_state"),
+            "train_rows": leaderboard.get("train_rows"),
+            "test_rows": leaderboard.get("test_rows"),
+            "models": models,
+        }
+    )
+
+
 def save_leaderboard(leaderboard: dict, path: str | Path) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(leaderboard, indent=2), encoding="utf-8")
+    clean = sanitize_for_json(leaderboard)
+    path.write_text(json.dumps(clean, indent=2), encoding="utf-8")
+    summary_path = path.parent / "leaderboard.json"
+    summary_path.write_text(json.dumps(leaderboard_summary(leaderboard), indent=2), encoding="utf-8")

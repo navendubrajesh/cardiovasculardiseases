@@ -1,0 +1,209 @@
+{
+  "defaultModelId": "ensemble_voting",
+  "test_size": 0.3,
+  "random_state": 42,
+  "train_rows": 2800,
+  "test_rows": 1200,
+  "models": {
+    "logistic_regression": {
+      "label": "Logistic Regression",
+      "accuracy": 0.9941666666666666,
+      "test_accuracy": 0.9941666666666666,
+      "train_accuracy": 0.9967857142857143,
+      "precision": 0.9411764705882353,
+      "recall": 1.0,
+      "f1": 0.9696969696969697,
+      "roc_auc": 0.9997702205882353,
+      "brier_score": 0.004731443248351925,
+      "train_test_gap": 0.002619047619047632,
+      "cv_roc_auc_mean": 0.9999621441550575,
+      "cv_roc_auc_std": 7.57116898849386e-05,
+      "confusion_matrix": {
+        "tn": 1081,
+        "fp": 7,
+        "fn": 0,
+        "tp": 112
+      }
+    },
+    "svm": {
+      "label": "Support Vector Machine",
+      "accuracy": 0.9908333333333333,
+      "test_accuracy": 0.9908333333333333,
+      "train_accuracy": 0.9935714285714285,
+      "precision": 0.9105691056910569,
+      "recall": 1.0,
+      "f1": 0.9531914893617022,
+      "roc_auc": 0.9996142988445379,
+      "brier_score": 0.0025308266591901898,
+      "train_test_gap": 0.002738095238095206,
+      "cv_roc_auc_mean": 0.9998864324651727,
+      "cv_roc_auc_std": 0.00015142337976983833,
+      "confusion_matrix": {
+        "tn": 1077,
+        "fp": 11,
+        "fn": 0,
+        "tp": 112
+      }
+    },
+    "decision_tree": {
+      "label": "Decision Tree",
+      "accuracy": 0.98,
+      "test_accuracy": 0.98,
+      "train_accuracy": 0.9778571428571429,
+      "precision": 0.8235294117647058,
+      "recall": 1.0,
+      "f1": 0.9032258064516129,
+      "roc_auc": 0.9978088891806722,
+      "brier_score": 0.016801897354175813,
+      "train_test_gap": -0.002142857142857113,
+      "cv_roc_auc_mean": 0.996074348879467,
+      "cv_roc_auc_std": 0.0027912262244980638,
+      "confusion_matrix": {
+        "tn": 1064,
+        "fp": 24,
+        "fn": 0,
+        "tp": 112
+      }
+    },
+    "knn": {
+      "label": "k-Nearest Neighbors",
+      "accuracy": 0.9583333333333334,
+      "test_accuracy": 0.9583333333333334,
+      "train_accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 0.5535714285714286,
+      "f1": 0.7126436781609196,
+      "roc_auc": 0.9791311055672269,
+      "brier_score": 0.02674491236488611,
+      "train_test_gap": 0.04166666666666663,
+      "cv_roc_auc_mean": 0.9782896729254997,
+      "cv_roc_auc_std": 0.013900179654168301,
+      "confusion_matrix": {
+        "tn": 1088,
+        "fp": 0,
+        "fn": 50,
+        "tp": 62
+      }
+    },
+    "random_forest": {
+      "label": "Random Forest",
+      "accuracy": 0.995,
+      "test_accuracy": 0.995,
+      "train_accuracy": 0.9985714285714286,
+      "precision": 0.9491525423728814,
+      "recall": 1.0,
+      "f1": 0.9739130434782609,
+      "roc_auc": 0.9998440782563025,
+      "brier_score": 0.0051477503716508225,
+      "train_test_gap": 0.0035714285714285587,
+      "cv_roc_auc_mean": 0.9999924288310116,
+      "cv_roc_auc_std": 1.5142337976969953e-05,
+      "confusion_matrix": {
+        "tn": 1082,
+        "fp": 6,
+        "fn": 0,
+        "tp": 112
+      }
+    },
+    "xgboost": {
+      "label": "XGBoost",
+      "accuracy": 0.9975,
+      "test_accuracy": 0.9975,
+      "train_accuracy": 0.9996428571428572,
+      "precision": 0.9739130434782609,
+      "recall": 1.0,
+      "f1": 0.986784140969163,
+      "roc_auc": 0.9995486475840336,
+      "brier_score": 0.0024414598010480404,
+      "train_test_gap": 0.002142857142857113,
+      "cv_roc_auc_mean": 0.9998561477892187,
+      "cv_roc_auc_std": 0.00026917608774428643,
+      "confusion_matrix": {
+        "tn": 1085,
+        "fp": 3,
+        "fn": 0,
+        "tp": 112
+      }
+    },
+    "neural_network": {
+      "label": "Neural Network",
+      "accuracy": 0.9933333333333333,
+      "test_accuracy": 0.9933333333333333,
+      "train_accuracy": 0.9917857142857143,
+      "precision": 0.9905660377358491,
+      "recall": 0.9375,
+      "f1": 0.963302752293578,
+      "roc_auc": 0.9991547400210085,
+      "brier_score": 0.006926194488454251,
+      "train_test_gap": -0.00154761904761902,
+      "cv_roc_auc_mean": 0.9985993337371291,
+      "cv_roc_auc_std": 0.0010792567947429143,
+      "confusion_matrix": {
+        "tn": 1087,
+        "fp": 1,
+        "fn": 7,
+        "tp": 105
+      }
+    },
+    "naive_bayes": {
+      "label": "Naive Bayes",
+      "accuracy": 0.9975,
+      "test_accuracy": 0.9975,
+      "train_accuracy": 0.9989285714285714,
+      "precision": 0.9739130434782609,
+      "recall": 1.0,
+      "f1": 0.986784140969163,
+      "roc_auc": 0.999848181460084,
+      "brier_score": 0.00249999999999206,
+      "train_test_gap": 0.0014285714285713347,
+      "cv_roc_auc_mean": 0.9999772864930346,
+      "cv_roc_auc_std": 4.5427013930954274e-05,
+      "confusion_matrix": {
+        "tn": 1085,
+        "fp": 3,
+        "fn": 0,
+        "tp": 112
+      }
+    },
+    "ensemble_voting": {
+      "label": "Ensemble (Voting)",
+      "accuracy": 0.9966666666666667,
+      "test_accuracy": 0.9966666666666667,
+      "train_accuracy": 0.9996428571428572,
+      "precision": 0.9655172413793104,
+      "recall": 1.0,
+      "f1": 0.9824561403508771,
+      "roc_auc": 0.9996471244747899,
+      "brier_score": 0.0029231525788584677,
+      "train_test_gap": 0.0029761904761904656,
+      "cv_roc_auc_mean": 0.999954572986069,
+      "cv_roc_auc_std": 6.056935190792979e-05,
+      "confusion_matrix": {
+        "tn": 1084,
+        "fp": 4,
+        "fn": 0,
+        "tp": 112
+      }
+    },
+    "anfis": {
+      "label": "ANFIS / Fuzzy",
+      "accuracy": 0.9891666666666666,
+      "test_accuracy": 0.9891666666666666,
+      "train_accuracy": 0.9896428571428572,
+      "precision": 0.9626168224299065,
+      "recall": 0.9196428571428571,
+      "f1": 0.9406392694063926,
+      "roc_auc": 0.9988346901260504,
+      "brier_score": 0.008887071217995614,
+      "train_test_gap": 0.0004761904761905189,
+      "cv_roc_auc_mean": 0.9964339794064203,
+      "cv_roc_auc_std": 0.0021984307321238974,
+      "confusion_matrix": {
+        "tn": 1084,
+        "fp": 4,
+        "fn": 9,
+        "tp": 103
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { wakeApi } from '../services/authService';
 import { fetchModelMetrics, type ModelMetrics } from '../services/researchService';
 
 const METRIC_KEYS: Array<{ key: keyof ModelMetrics; label: string; format: (v: number) => string }> = [
@@ -41,10 +42,16 @@ export const ModelsPage = () => {
   useEffect(() => {
     void (async () => {
       try {
+        await wakeApi(3);
         const data = await fetchModelMetrics();
         setMetrics(data.models ?? {});
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Could not load metrics.');
+        const msg = err instanceof Error ? err.message : 'Could not load metrics.';
+        setError(
+          msg.includes('fetch')
+            ? 'Could not reach the API. Wait ~30s for the server to wake up and refresh.'
+            : msg,
+        );
       } finally {
         setLoading(false);
       }

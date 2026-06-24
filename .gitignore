@@ -16,7 +16,9 @@ ai-cardiologist-web/dist/
 
 # ML artifacts (large — use GitHub Releases or train in CI)
 ai-cardiologist-ml/data/*.csv
+!ai-cardiologist-ml/data/benchmark_holdout_test.xlsx
 ai-cardiologist-ml/models/artifacts/*.joblib
+!ai-cardiologist-ml/models/leaderboard.json
 ai-cardiologist-ml/models/metrics.json
 ai-cardiologist-ml/eda/
 
