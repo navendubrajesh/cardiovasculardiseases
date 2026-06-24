@@ -60,12 +60,20 @@ curl https://ai-cardiologist-api.onrender.com/api/health
 ## 4. Local development
 
 ```powershell
+# One command (trains models on first run, then starts API + web)
+.\scripts\start-local.ps1
+
+# Or manually:
 # API
 cd ai-cardiologist-backend
 $env:MODELS_DIR="..\ai-cardiologist-ml\models\artifacts"
-uvicorn api.index:app --reload --port 8000
+$env:CORS_ORIGINS="http://localhost:5179,http://127.0.0.1:5179"
+python -m uvicorn api.index:app --reload --port 8000
 
-# Web
+# Web (clear production base path for local)
 cd ai-cardiologist-web
+Remove-Item Env:VITE_BASE_PATH -ErrorAction SilentlyContinue
 npm run dev
 ```
+
+Open **http://localhost:5179** (API auto-targets `http://127.0.0.1:8000`).
